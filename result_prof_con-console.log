@@ -1,0 +1,33 @@
+Statistical profiling result from con-console.log, (5723 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   5668   99.0%          C:\Windows\SYSTEM32\ntdll.dll
+     52    0.9%          C:\Program Files\nodejs\node.exe
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      2    0.0%   66.7%  LazyCompile: *resolve path.js:130:10
+      1    0.0%   33.3%  LazyCompile: *Module._nodeModulePaths internal/modules/cjs/loader.js:533:37
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+      3    0.1%  100.0%  JavaScript
+      0    0.0%    0.0%  C++
+      3    0.1%  100.0%  GC
+   5720   99.9%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   5668   99.0%  C:\Windows\SYSTEM32\ntdll.dll
+

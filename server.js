@@ -6,6 +6,7 @@ const MongoStore = require('connect-mongo');
 const {fork} = require('child_process');
 const minimist = require("minimist");
 const compression = require('compression');
+const {random} = require('./randomNumberSinChild');
 const logger = require('./logger');
 
 
@@ -137,7 +138,10 @@ app.get('/logout', (req, res) => {
 
     req.session.destroy((err) =>{
         if(!err) res.render('logout', { credencial });
-        else res.send({status: 'Logout ERROR', body: err})
+        else{
+            logger.error("Error logout");
+            res.send({status: 'Logout ERROR', body: err});
+        }
     })
 });
 
@@ -145,12 +149,14 @@ app.get('/logout', (req, res) => {
 
 app.get('/api/randoms/', (req, res) => {
     let cantDatos = parseInt(req.query.cant);
-    const forked = fork('randomNumbers');
+    /* const forked = fork('randomNumbers');
 
     forked.on('message', numbers => {
         res.send(numbers);
     })
-    forked.send(cantDatos);
+    forked.send(cantDatos); */
+    let numbers = random(cantDatos);
+    res.send(numbers);
     console.log("random succesful")
 });
 
@@ -165,7 +171,7 @@ app.get('/info', (req, res) =>{
         file: __dirname,
         numberCPUs: numberCPUs
     }
-    
+    //console.log(info);
     res.send(info)
 })
 

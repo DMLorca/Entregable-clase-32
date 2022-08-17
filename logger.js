@@ -1,20 +1,20 @@
 const log4js = require('log4js');
 
+//Nivel de salida: fatal, error, warn, info, debug, trace
+
 log4js.configure({
   appenders: {
     consola: { type: 'console' },
-    archivoDebug: { type: 'file', filename: 'debug.log' },
+
     archivoError: { type: 'file', filename: 'error.log' },
-    soloDebug: { type: 'logLevelFilter', appender: 'archivoDebug', level: 'debug'},
+    archivoWarn: { type: 'file', filename: 'warn.log' },
+
+    soloWarn: { type: 'logLevelFilter', appender: 'archivoWarn', level: 'warn'},
     soloError: { type: 'logLevelFilter', appender: 'archivoError', level: 'error'}
   },
   categories: {
-    default: { appenders: ['consola'], level: 'info'},
-    desarrollo: { appenders: ['consola'], level: 'info' },
-    produccion: { appenders: ['soloDebug', 'soloError'], level: 'debug' }
+    default: { appenders: ['consola','soloWarn', 'soloError'], level: 'all'},
   }
 });
 
-const logAUtilizar = process.env.NODE_ENV === 'PROD' ? 'produccion' : 'desarrollo';
-
-module.exports = log4js.getLogger(logAUtilizar);
+module.exports = log4js.getLogger('default');
